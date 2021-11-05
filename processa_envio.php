@@ -62,8 +62,8 @@ try {
   $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
   //Recipients
-  $mail->setFrom('fredericosantana11@gmail.com', 'Mailer Remetente');
-  $mail->addAddress('iaralays.pac@gmail.com', 'Joe User Destinatário');     //Add a recipient
+  $mail->setFrom('fredericosantana11@gmail.com', 'Frederico Santana');
+  $mail->addAddress($mensagem->__get('para'));     //Add a recipient
 //  $mail->addReplyTo('info@example.com', 'Information');
 //  $mail->addCC('cc@example.com');
 //  $mail->addBCC('bcc@example.com');
@@ -74,12 +74,12 @@ try {
 
   //Content
   $mail->isHTML(true);                                  //Set email format to HTML
-  $mail->Subject = 'Serviço de envio de e-mail!';
-  $mail->Body    = 'Tô virando um mago cibernético! <b>HAHAHAHA</b>';
-  $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+  $mail->Subject = $mensagem->__get('assunto');
+  $mail->Body    = $mensagem->__get('mensagem');
+  $mail->AltBody = 'É necessário ter um client que suporte HTML.';
 
   $mail->send();
-  echo 'Message has been sent';
+  echo 'E-mail enviado com sucesso.';
 } catch (Exception $e) {
   echo "Não foi possível enviar o e-mail. Mailer Error: {$mail->ErrorInfo}";
 }
